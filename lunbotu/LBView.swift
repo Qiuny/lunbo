@@ -13,7 +13,8 @@ class LBView: UIView, UIScrollViewDelegate {
     
     var scrollView: UIScrollView!
     var pageControl: UIPageControl!
-    var lunboImage = [UIImage]()
+    //var lunboImage = [UIImage]()
+    var lunboImageView = [UIImageView]()
     var numOfImage: Int = 0
 
     
@@ -23,6 +24,7 @@ class LBView: UIView, UIScrollViewDelegate {
         self.addSubview(scrollView)
         pageControl = UIPageControl()
         self.addSubview(pageControl)
+        lunboImageView.append(UIImageView())
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -30,17 +32,29 @@ class LBView: UIView, UIScrollViewDelegate {
     }
     
     func scroll() {
-        numOfImage = lunboImage.count
-        let leftimage = lunboImage.last
-        lunboImage.insert(leftimage!, atIndex: 0)
-        let rightimage = lunboImage[1]
-        lunboImage.append(rightimage)
+        lunboImageView.append(UIImageView())
+        numOfImage = lunboImageView.count
+        lunboImageView[0].image = lunboImageView[numOfImage - 2].image
+        lunboImageView[numOfImage - 1].image = lunboImageView[1].image
+        numOfImage -= 2
+//        let leftImageView = lunboImageView.last
+//        lunboImageView.insert(leftImageView!, atIndex: 0)
+//        let rightImageView = lunboImageView[1]
+//        lunboImageView.append(rightImageView)
+        
+        
+//        numOfImage = lunboImage.count
+//        let leftImage = lunboImage.last
+//        lunboImage.insert(leftImage!, atIndex: 0)
+//        let rightImage = lunboImage[1]
+//        lunboImage.append(rightImage)
+        
         pageControl.layer.position = CGPointMake(scrollView.frame.width/2, scrollView.frame.height - 20 + scrollView.frame.origin.y)
         pageControl.numberOfPages = numOfImage
         pageControl.pageIndicatorTintColor = UIColor.grayColor()
         pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
         pageControl.addTarget(self, action: "turnPage", forControlEvents: UIControlEvents.TouchUpInside)
-        scrollView.contentSize = CGSizeMake(self.frame.width*CGFloat(numOfImage+2), self.frame.height)
+        scrollView.contentSize = CGSizeMake(self.frame.width*CGFloat(numOfImage + 2), self.frame.height)
         scrollView.pagingEnabled = true
         scrollView.delegate = self
         scrollView.showsHorizontalScrollIndicator = false
@@ -53,10 +67,9 @@ class LBView: UIView, UIScrollViewDelegate {
     func scrollInit() {
         let width = self.frame.width
         let height = self.frame.height
-        for i in 0...self.lunboImage.count-1 {
-            let scrollImageView = UIImageView(frame: CGRectMake(CGFloat(i)*width, 0, width, height))
-            scrollImageView.image = lunboImage[i]
-            scrollView.addSubview(scrollImageView)
+        for i in 0...self.lunboImageView.count - 1 {
+            lunboImageView[i].frame = CGRectMake(CGFloat(i)*width, 0, width, height)
+            self.scrollView.addSubview(lunboImageView[i])
         }
         let rect = CGRectMake(width, 0, width, height)
         scrollView.scrollRectToVisible(rect, animated: true)

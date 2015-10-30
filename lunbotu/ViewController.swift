@@ -17,10 +17,10 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
         let size = CGRectMake(0, 100, self.view.frame.width, self.view.frame.height/3)
         lb = LBView(frame: size)
-        for i in 1...3 {
+        for i in 0...4 {
             let imStr = String(format: "bg%i", i)
             let image = UIImage(named: imStr)!
-            lb.lunboImage.append(image)
+            lb.lunboImageView.append(UIImageView(image: image))
         }
         lb.scroll()
         self.view.addSubview(lb)
