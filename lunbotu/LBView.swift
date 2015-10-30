@@ -37,17 +37,6 @@ class LBView: UIView, UIScrollViewDelegate {
         lunboImageView[0].image = lunboImageView[numOfImage - 2].image
         lunboImageView[numOfImage - 1].image = lunboImageView[1].image
         numOfImage -= 2
-//        let leftImageView = lunboImageView.last
-//        lunboImageView.insert(leftImageView!, atIndex: 0)
-//        let rightImageView = lunboImageView[1]
-//        lunboImageView.append(rightImageView)
-        
-        
-//        numOfImage = lunboImage.count
-//        let leftImage = lunboImage.last
-//        lunboImage.insert(leftImage!, atIndex: 0)
-//        let rightImage = lunboImage[1]
-//        lunboImage.append(rightImage)
         
         pageControl.layer.position = CGPointMake(scrollView.frame.width/2, scrollView.frame.height - 20 + scrollView.frame.origin.y)
         pageControl.numberOfPages = numOfImage
