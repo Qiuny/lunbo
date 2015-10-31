@@ -32,12 +32,6 @@ class LBView: UIView, UIScrollViewDelegate {
     }
     
     func scroll() {
-        lunboImageView.append(UIImageView())
-        numOfImage = lunboImageView.count
-        lunboImageView[0].image = lunboImageView[numOfImage - 2].image
-        lunboImageView[numOfImage - 1].image = lunboImageView[1].image
-        numOfImage -= 2
-        
         pageControl.layer.position = CGPointMake(scrollView.frame.width/2, scrollView.frame.height - 20 + scrollView.frame.origin.y)
         pageControl.numberOfPages = numOfImage
         pageControl.pageIndicatorTintColor = UIColor.grayColor()
@@ -51,6 +45,27 @@ class LBView: UIView, UIScrollViewDelegate {
         scrollView.contentInset = UIEdgeInsets(top: -64, left: 0, bottom: 0, right: 0)
         scrollInit()
         NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "autoScroll", userInfo: nil, repeats: true)
+    }
+    
+    func scrollImages(images: [UIImage]) {
+        self.numOfImage = images.count
+        for i in 0...images.count - 1 {
+            lunboImageView.append(UIImageView(image: images[i]))
+        }
+        lunboImageView[0].image = lunboImageView.last?.image
+        lunboImageView.append(UIImageView(image: lunboImageView[1].image))
+    }
+    
+    func scrollImagesByNet(imageURLs: [String], placeHolderImage: UIImage) {
+        self.numOfImage = imageURLs.count
+        for i in 0...imageURLs.count - 1 {
+            let imageV = UIImageView()
+            imageV.sd_setImageWithURL(NSURL(string: imageURLs[i]), placeholderImage: placeHolderImage)
+            lunboImageView.append(imageV)
+        }
+        lunboImageView.append(UIImageView())
+        lunboImageView[0].sd_setImageWithURL(NSURL(string: imageURLs[imageURLs.count - 1]), placeholderImage: placeHolderImage)
+        lunboImageView.last?.sd_setImageWithURL(NSURL(string: imageURLs[0]), placeholderImage: placeHolderImage)
     }
     
     func scrollInit() {

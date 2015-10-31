@@ -11,17 +11,20 @@ import UIKit
 class ViewController: UIViewController {
     
     var lb: LBView!
+    
+    var images = [UIImage]()
+    let str = ["http://7xlyw8.com1.z0.glb.clouddn.com/shiwu/footbal-ball.png", "http://7xlyw8.com1.z0.glb.clouddn.com/shiwu/localImage1.jpg", "http://7xlyw8.com1.z0.glb.clouddn.com/shiwu/owl.png"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
         let size = CGRectMake(0, 100, self.view.frame.width, self.view.frame.height/3)
         lb = LBView(frame: size)
-        for i in 0...4 {
-            let imStr = String(format: "bg%i", i)
-            let image = UIImage(named: imStr)!
-            lb.lunboImageView.append(UIImageView(image: image))
-        }
+//        for i in 0...2 {
+//            let imStr = String(format: "bg%i", i)
+//            images.append(UIImage(named: imStr)!)
+//        }
+        lb.scrollImagesByNet(str, placeHolderImage: UIImage(named: "bg5")!)
         lb.scroll()
         self.view.addSubview(lb)
     }
