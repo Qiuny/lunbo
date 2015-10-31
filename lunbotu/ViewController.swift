@@ -18,13 +18,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
-        let size = CGRectMake(0, 100, self.view.frame.width, self.view.frame.height/3)
+        let size = CGRectMake(0, 64, self.view.frame.width, self.view.frame.height/3)
         lb = LBView(frame: size)
 //        for i in 0...2 {
 //            let imStr = String(format: "bg%i", i)
 //            images.append(UIImage(named: imStr)!)
 //        }
         lb.scrollImagesByNet(str, placeHolderImage: UIImage(named: "bg5")!)
+        lb.backgroundColor = UIColor.greenColor()
         lb.scroll()
         self.view.addSubview(lb)
     }

@@ -20,7 +20,7 @@ class LBView: UIView, UIScrollViewDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.scrollView = UIScrollView(frame: frame)
+        self.scrollView = UIScrollView(frame: CGRectMake(0, 0, frame.width, frame.height))
         self.addSubview(scrollView)
         pageControl = UIPageControl()
         self.addSubview(pageControl)
