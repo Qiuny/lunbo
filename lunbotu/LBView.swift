@@ -36,7 +36,7 @@ class LBView: UIView, UIScrollViewDelegate {
         pageControl.numberOfPages = numOfImage
         pageControl.pageIndicatorTintColor = UIColor.grayColor()
         pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
-        pageControl.addTarget(self, action: "turnPage", forControlEvents: UIControlEvents.TouchUpInside)
+        pageControl.addTarget(self, action: #selector(LBView.turnPage), forControlEvents: UIControlEvents.TouchUpInside)
         scrollView.contentSize = CGSizeMake(self.frame.width*CGFloat(numOfImage + 2), self.frame.height)
         scrollView.pagingEnabled = true
         scrollView.delegate = self
@@ -44,7 +44,7 @@ class LBView: UIView, UIScrollViewDelegate {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.contentInset = UIEdgeInsets(top: -64, left: 0, bottom: 0, right: 0)
         scrollInit()
-        NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "autoScroll", userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(LBView.autoScroll), userInfo: nil, repeats: true)
     }
     
     func scrollImages(images: [UIImage]) {
@@ -69,10 +69,10 @@ class LBView: UIView, UIScrollViewDelegate {
     }
     
     func scrollInit() {
-        let width = self.frame.width
-        let height = self.frame.height
+        let width = scrollView.frame.width
+        let height = scrollView.frame.height
         for i in 0...self.lunboImageView.count - 1 {
-            lunboImageView[i].frame = CGRectMake(CGFloat(i)*width, 0, width, height)
+            lunboImageView[i].frame = CGRectMake(CGFloat(i)*width, 64, width, height)
             self.scrollView.addSubview(lunboImageView[i])
         }
         let rect = CGRectMake(width, 0, width, height)
@@ -82,7 +82,7 @@ class LBView: UIView, UIScrollViewDelegate {
     func autoScroll() {
         let num = self.numOfImage
         var page = pageControl.currentPage
-        page++
+        page += 1
         if page >= num {
             scrollView.scrollRectToVisible(CGRectMake(CGFloat(num+1)*scrollView.frame.width, 0, scrollView.frame.width, scrollView.frame.height), animated: true)
             let minseconds = 0.3*Double(NSEC_PER_SEC)

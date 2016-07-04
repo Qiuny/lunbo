@@ -10,7 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var lb: LBView!
+    let kwidth = UIScreen.mainScreen().bounds.width
+    let kheight = UIScreen.mainScreen().bounds.height
     
     var images = [UIImage]()
     let str = ["http://7xlyw8.com1.z0.glb.clouddn.com/shiwu/footbal-ball.png", "http://7xlyw8.com1.z0.glb.clouddn.com/shiwu/localImage1.jpg", "http://7xlyw8.com1.z0.glb.clouddn.com/shiwu/owl.png"]
@@ -18,16 +19,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
-        let size = CGRectMake(0, 64, self.view.frame.width, self.view.frame.height/3)
-        lb = LBView(frame: size)
-//        for i in 0...2 {
-//            let imStr = String(format: "bg%i", i)
-//            images.append(UIImage(named: imStr)!)
-//        }
+        self.automaticallyAdjustsScrollViewInsets = false
+        let size = CGRectMake(0, 240, self.view.frame.width, self.view.frame.height/3)
+        let lb = LBView(frame: CGRectMake(0, 0, kwidth, kheight/3))
         lb.scrollImagesByNet(str, placeHolderImage: UIImage(named: "bg5")!)
-        lb.backgroundColor = UIColor.greenColor()
+//        lb.backgroundColor = UIColor.redColor()
         lb.scroll()
-        self.view.addSubview(lb)
+        let v = UIView(frame: size)
+        v.backgroundColor = UIColor.purpleColor()
+        v.addSubview(lb)
+        self.view.addSubview(v)
     }
 
     override func didReceiveMemoryWarning() {
